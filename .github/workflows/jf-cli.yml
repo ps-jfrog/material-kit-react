@@ -72,9 +72,10 @@ jobs:
           tree .
           rm -rf node_modules
           rm -rf *-lock.json
-rm -rf *-lock.yaml
-rm -rf temp
-rm -rf .npmrc
+          rm -rf *-lock.yaml
+          rm -rf temp
+          rm -rf .npmrc
+          rm -rf .jfrog
           tree .
 
       - name: "Package: Create NPM Build"
