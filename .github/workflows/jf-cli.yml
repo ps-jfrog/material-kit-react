@@ -62,9 +62,6 @@ jobs:
           # jf config
           jf config show
 
-      - name: "Config jf with repos"
-        run: |
-          jf npmc --repo-resolve $${{env.RT_REPO_VIRTUAL}} -repo-deploy $${{env.RT_REPO_VIRTUAL}}
 
       - name: "Cleaning node_modules and lock files"
         run: |
@@ -77,6 +74,10 @@ jobs:
           rm -rf .npmrc
           rm -rf .jfrog
           tree .
+          
+      - name: "Config jf with NPM repos"
+        run: |
+          jf npmc --repo-resolve $${{env.RT_REPO_VIRTUAL}} -repo-deploy $${{env.RT_REPO_VIRTUAL}}
 
       - name: "Package: Create NPM Build"
         run: |    
