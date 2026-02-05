@@ -33,8 +33,6 @@ jobs:
         env:
           JF_URL: ${{env.JF_RT_URL}}
           JFROG_CLI_LOG_LEVEL: ${{env.JFROG_CLI_LOG_LEVEL}}
-          JFROG_CLI_RELEASES_REPO: '${{env.JF_RT_URL}}/artifactory/${{env.RT_REPO_VIRTUAL}}' 
-          JFROG_CLI_EXTRACTORS_REMOTE: '${{env.JF_RT_URL}}/artifactory/${{env.RT_REPO_VIRTUAL}}'
           JF_GIT_TOKEN: ${{secrets.GITHUB_TOKEN}}      
         with:
           version: latest  #2.71.0
@@ -50,18 +48,13 @@ jobs:
           jf --version
           # Ping the server
           jf rt ping
-          # Java
-          java -version
-          # MVN
-          mvn -version
           # Docker
           docker -v
-          # Python
-          python3 -V
-          pip3 -V
+          # NodeJS
+          node -v
+          npm -v
           # jf config
           jf config show
-
 
       - name: "Cleaning node_modules and lock files"
         run: |
@@ -74,7 +67,7 @@ jobs:
           rm -rf .npmrc
           rm -rf .jfrog
           tree .
-          
+
       - name: "Config jf with NPM repos"
         run: |
           jf npmc --repo-resolve $${{env.RT_REPO_VIRTUAL}} -repo-deploy $${{env.RT_REPO_VIRTUAL}}
